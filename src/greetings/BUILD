@@ -1,7 +1,7 @@
 python_library(
     name="greetings",
     srcs=["greetings.py"],
-    visibility=["//src/..."],
+    visibility=["//apps/...", "//src/..."],
     deps=["//vendor/python:python-i18n"],
 )
 
