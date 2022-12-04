@@ -1,12 +1,10 @@
 package main
 
 import (
-	"fmt"
-	"io"
 	"log"
-	"os"
 	"path/filepath"
 
+	"github.com/joshuasprow/please-practice/packages/scripts"
 	"github.com/magefile/mage/sh"
 )
 
@@ -22,37 +20,10 @@ func buildGoHello() error {
 }
 
 func copyGreetingsFile() error {
-	dst, err := filepath.Abs(filepath.Join("dist", "greetings.json"))
-	if err != nil {
-		return err
-	}
+	dst := filepath.Join("dist", "greetings.json")
+	src := filepath.Join("..", "..", "data", "greetings.json")
 
-	src, err := filepath.Abs(
-		filepath.Join("..", "..", "data", "greetings.json"),
-	)
-	if err != nil {
-		return err
-	}
-
-	fmt.Printf("copying %s to %s\n", src, dst)
-
-	dstFile, err := os.Create(dst)
-	if err != nil {
-		return err
-	}
-	defer dstFile.Close()
-
-	srcFile, err := os.Open(src)
-	if err != nil {
-		return err
-	}
-	defer srcFile.Close()
-
-	if _, err := io.Copy(dstFile, srcFile); err != nil {
-		return err
-	}
-
-	return nil
+	return scripts.CopyFile(src, dst)
 }
 
 func main() {
