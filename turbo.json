@@ -28,15 +28,33 @@
       ]
     },
     "@please-practice/gohello#build": {},
+    "@please-practice/jshello#build": {},
+    "@please-practice/pyhello#build": {},
     "hello:build": {
-      "dependsOn": ["@please-practice/gohello#build"]
+      "dependsOn": [
+        "@please-practice/gohello#build",
+        "@please-practice/jshello#build",
+        "@please-practice/pyhello#build"
+      ]
     },
     "@please-practice/gohello#publish": {
       "cache": false,
       "dependsOn": ["@please-practice/gohello#build"]
     },
+    "@please-practice/jshello#publish": {
+      "cache": false,
+      "dependsOn": ["@please-practice/jshello#build"]
+    },
+    "@please-practice/pyhello#publish": {
+      "cache": false,
+      "dependsOn": ["@please-practice/pyhello#build"]
+    },
     "hello:publish": {
-      "dependsOn": ["@please-practice/gohello#publish"]
+      "dependsOn": [
+        "@please-practice/gohello#publish",
+        "@please-practice/jshello#publish",
+        "@please-practice/pyhello#publish"
+      ]
     }
   }
 }

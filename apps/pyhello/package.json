@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "plz run //apps/pyhello"
+    "start": "plz run //apps/pyhello",
+    "build": "go run build.go",
+    "publish": "docker build -t please-practice/pyhello ."
   }
 }
