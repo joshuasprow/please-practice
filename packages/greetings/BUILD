@@ -2,7 +2,7 @@ python_library(
     name="greetings",
     srcs=["greetings.py"],
     visibility=["//apps/...", "//packages/..."],
-    deps=["//vendor/python:python-i18n"],
+    deps=["//imports/python:python-i18n"],
 )
 
 python_test(
