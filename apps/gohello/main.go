@@ -2,9 +2,16 @@ package main
 
 import (
 	"fmt"
-	"please-practice/packages/greetings"
+	"log"
+
+	"github.com/joshuasprow/please-practice/packages/greetings"
 )
 
 func main() {
-	fmt.Printf("%s World\n", greetings.Greeting())
+	greeting, err := greetings.Greeting()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("%s World\n", greeting)
 }
