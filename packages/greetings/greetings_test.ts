@@ -4,4 +4,5 @@ import { greeting } from "./greetings.js";
 
 test("greeting returns a string", () => {
   assert.strictEqual(typeof greeting(), "string");
+  assert.notStrictEqual(greeting(), "");
 });

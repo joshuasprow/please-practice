@@ -1,4 +1,4 @@
-import i18n from "i18next";
+import i18n, { Resource } from "i18next";
 
 class Word {
   locale: string;
@@ -32,8 +32,7 @@ const hellos = [
   new Word("ms", "Hai"),
 ];
 
-/** @type {import("i18next").Resource} */
-const resources = {};
+const resources: Resource = {};
 
 for (const hello of hellos) {
   resources[hello.locale] = { [helloEn.word]: hello.word };
