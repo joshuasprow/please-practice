@@ -6,9 +6,9 @@
     "packages/*"
   ],
   "scripts": {
-    "gohello": "turbo run gohello",
-    "jshello": "turbo run jshello",
-    "pyhello": "turbo run pyhello",
+    "hello:go": "turbo run @please-practice/gohello#start",
+    "hello:js": "turbo run @please-practice/jshello#start",
+    "hello:py": "turbo run @please-practice/pyhello#start",
     "hello": "turbo run hello"
   },
   "keywords": [],

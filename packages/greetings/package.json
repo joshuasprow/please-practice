@@ -5,6 +5,11 @@
   "files": [
     "greetings.js"
   ],
+  "scripts": {
+    "test:go": "go test ./...",
+    "test:js": "node --test",
+    "test:py": "plz test //packages/greetings:greetings_test"
+  },
   "dependencies": {
     "i18next": "^22.0.6"
   }
