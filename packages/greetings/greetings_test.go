@@ -1,9 +1,14 @@
 package greetings
 
-import "testing"
+import (
+	"path/filepath"
+	"testing"
+)
 
 func TestGreeting(t *testing.T) {
-	greeting, err := Greeting()
+	greeting, err := Greeting(
+		filepath.Join("..", "..", "data", "greetings.json"),
+	)
 	if err != nil {
 		t.Fatal(err)
 	}

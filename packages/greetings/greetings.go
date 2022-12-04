@@ -20,9 +20,7 @@ type Word struct {
 
 var bundle *i18n.Bundle
 
-func readHellosFromFile() ([]Word, error) {
-	path := filepath.Join("..", "..", "data", "greetings.json")
-
+func readHellosFromFile(path string) ([]Word, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
@@ -70,10 +68,14 @@ func getRandomHello(hellos []Word) (string, error) {
 		Localize(&i18n.LocalizeConfig{MessageID: messageID})
 }
 
-func Greeting() (string, error) {
+func Greeting(greetingsFile string) (string, error) {
 	var err error
 
-	hellos, err := readHellosFromFile()
+	if greetingsFile == "" {
+		greetingsFile = filepath.Join("..", "..", "data", "greetings.json")
+	}
+
+	hellos, err := readHellosFromFile(greetingsFile)
 	if err != nil {
 		return "", err
 	}
