@@ -2,13 +2,17 @@
   "name": "@please-practice/jshello",
   "version": "0.0.0",
   "type": "module",
+  "main": "main.js",
   "scripts": {
-    "start": "vite-node main.ts"
+    "start": "vite-node main.ts",
+    "build": "esbuild --bundle --platform=node --outfile=dist/main.js main.ts",
+    "publish": "docker build -t please-practice/jshello ."
   },
   "dependencies": {
     "@please-practice/greetings": "*"
   },
   "devDependencies": {
+    "esbuild": "^0.15.17",
     "typescript": "^4.9.3",
     "vite-node": "0.25.3"
   }
