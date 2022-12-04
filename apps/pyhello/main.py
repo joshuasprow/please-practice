@@ -1,3 +1,19 @@
+import os
+from os import path
+
 from packages.greetings import greetings
 
-print(f"{greetings.greeting()} World!")
+
+def main():
+    greetings_file = os.getenv(
+        "GREETINGS_FILE",
+        path.join("data", "greetings.json"),
+    )
+
+    hello = greetings.greeting(greetings_file)
+
+    print(f"{hello} World!")
+
+
+if __name__ == "__main__":
+    main()

@@ -11,8 +11,7 @@ class Word(NamedTuple):
     word: str
 
 
-def read_hellos_from_file() -> list[Word]:
-    filepath = path.join("data", "greetings.json")
+def read_hellos_from_file(filepath: str) -> list[Word]:
     objs: list[Word] = []
 
     with open(filepath, "r") as f:
@@ -22,16 +21,12 @@ def read_hellos_from_file() -> list[Word]:
 
 
 def load_bundle(hellos: list[Word], hello_en: Word):
-    for hello in hellos:
-        i18n.add_translation(
-            hello_en.word,
-            hello.word,
-            locale=hello.locale,
-        )
+    for [locale, word] in hellos:
+        i18n.add_translation(hello_en.word, word, locale=locale)
 
 
-def greeting():
-    hellos = read_hellos_from_file()
+def greeting(greetings_file=path.join("data", "greetings.json")):
+    hellos = read_hellos_from_file(greetings_file)
     hello_en = next(hello for hello in hellos if hello.locale == "en")
 
     if hello_en is None:
