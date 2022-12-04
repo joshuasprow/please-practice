@@ -1,0 +1,19 @@
+{
+  "name": "please-practice",
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "volta": {
+    "node": "18.12.1"
+  },
+  "packageManager": "^npm@8.19.2",
+  "devDependencies": {
+    "turbo": "^1.6.3"
+  }
+}
