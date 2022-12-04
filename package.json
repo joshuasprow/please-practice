@@ -6,7 +6,10 @@
     "packages/*"
   ],
   "scripts": {
-    "jshello": "turbo run jshello"
+    "gohello": "turbo run gohello",
+    "jshello": "turbo run jshello",
+    "pyhello": "turbo run pyhello",
+    "hello": "turbo run hello"
   },
   "keywords": [],
   "author": "",

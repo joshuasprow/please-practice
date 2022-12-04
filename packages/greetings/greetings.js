@@ -46,5 +46,3 @@ export const greeting = () => {
 
   return hello;
 };
-
-console.log(greeting());

@@ -1,9 +1,20 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
+    "@please-practice/gohello#start": {},
+    "gohello": {
+      "dependsOn": ["@please-practice/gohello#start"]
+    },
     "@please-practice/jshello#start": {},
     "jshello": {
       "dependsOn": ["@please-practice/jshello#start"]
+    },
+    "@please-practice/pyhello#start": {},
+    "pyhello": {
+      "dependsOn": ["@please-practice/pyhello#start"]
+    },
+    "hello": {
+      "dependsOn": ["gohello", "jshello", "pyhello"]
     }
   }
 }
