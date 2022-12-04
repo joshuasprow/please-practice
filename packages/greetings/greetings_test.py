@@ -1,5 +1,6 @@
 import unittest
-from src.greetings import greetings
+
+from packages.greetings import greetings
 
 
 class GreetingsTest(unittest.TestCase):
