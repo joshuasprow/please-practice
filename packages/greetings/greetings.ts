@@ -1,4 +1,6 @@
+import { readFileSync } from "fs";
 import i18n, { Resource } from "i18next";
+import { join } from "path";
 
 class Word {
   locale: string;
@@ -10,41 +12,43 @@ class Word {
   }
 }
 
-const helloEn = new Word("en", "Hello");
+const readHellosFromFile = () => {
+  const path = join(__dirname, "..", "..", "data", "greetings.json");
+  const data = readFileSync(path, "utf8");
 
-const hellos = [
-  helloEn,
-  new Word("es", "Hola"),
-  new Word("fr", "Bonjour"),
-  new Word("de", "Hallo"),
-  new Word("it", "Ciao"),
-  new Word("pt", "Olá"),
-  new Word("ru", "Привет"),
-  new Word("ja", "こんにちは"),
-  new Word("zh", "你好"),
-  new Word("ko", "안녕하세요"),
-  new Word("ar", "مرحبا"),
-  new Word("hi", "नमस्ते"),
-  new Word("bn", "হ্যালো"),
-  new Word("th", "สวัสดี"),
-  new Word("vi", "Xin chào"),
-  new Word("id", "Halo"),
-  new Word("ms", "Hai"),
-];
+  const hellos: Word[] = [];
 
-const resources: Resource = {};
+  for (const obj of JSON.parse(data)) {
+    const hello = new Word(obj.locale, obj.word);
 
-for (const hello of hellos) {
-  resources[hello.locale] = { [helloEn.word]: hello.word };
-}
+    hellos.push(hello);
+  }
 
-i18n.init({ resources });
+  return hellos;
+};
 
-/** @returns {string} */
+const loadBundle = (hellos: Word[], helloEn: Word) => {
+  const resources: Resource = {};
+
+  for (const hello of hellos) {
+    resources[hello.locale] = { [helloEn.word]: hello.word };
+  }
+
+  i18n.init({ resources });
+};
+
 export const greeting = () => {
+  const hellos = readHellosFromFile();
+  const helloEn = hellos.find((hello) => hello.locale === "en");
+
+  if (!helloEn) {
+    throw new Error("English greeting not found");
+  }
+
+  loadBundle(hellos, helloEn);
+
   const randomHello = hellos[Math.floor(Math.random() * hellos.length)];
   const randomLanguage = randomHello.locale;
-  const hello = i18n.getDataByLanguage(randomLanguage)[helloEn.word];
 
-  return hello;
+  return i18n.getDataByLanguage(randomLanguage)[helloEn.word];
 };
