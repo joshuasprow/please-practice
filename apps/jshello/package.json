@@ -3,9 +3,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "node main.js"
+    "start": "vite-node main.ts"
   },
   "dependencies": {
     "@please-practice/greetings": "*"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.3",
+    "vite-node": "0.25.3"
   }
 }

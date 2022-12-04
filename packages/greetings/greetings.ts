@@ -1,7 +1,10 @@
 import i18n from "i18next";
 
 class Word {
-  constructor(locale, word) {
+  locale: string;
+  word: string;
+
+  constructor(locale: string, word: string) {
     this.locale = locale;
     this.word = word;
   }
