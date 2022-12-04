@@ -5,7 +5,9 @@
     "apps/*",
     "packages/*"
   ],
-  "scripts": {},
+  "scripts": {
+    "jshello": "turbo run jshello"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

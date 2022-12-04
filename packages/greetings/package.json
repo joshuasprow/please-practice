@@ -1,0 +1,11 @@
+{
+  "name": "@please-practice/greetings",
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "greetings.js"
+  ],
+  "dependencies": {
+    "i18next": "^22.0.6"
+  }
+}

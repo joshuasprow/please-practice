@@ -1,0 +1,11 @@
+{
+  "name": "@please-practice/jshello",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "dependencies": {
+    "@please-practice/greetings": "*"
+  }
+}

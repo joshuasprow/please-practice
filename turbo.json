@@ -1,3 +1,9 @@
 {
-  "$schema": "https://turbo.build/schema.json"
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "@please-practice/jshello#start": {},
+    "jshello": {
+      "dependsOn": ["@please-practice/jshello#start"]
+    }
+  }
 }
