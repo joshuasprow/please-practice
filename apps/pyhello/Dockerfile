@@ -4,6 +4,8 @@ RUN apt-get update && apt-get install -y python3 python3-pip
 
 WORKDIR /usr/src/app
 
-COPY ./dist/pyhello ./
+COPY ./dist/ ./
+
+ENV GREETINGS_PATH="greetings.json"
 
 CMD ["./pyhello"]

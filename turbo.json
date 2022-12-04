@@ -3,7 +3,9 @@
   "pipeline": {
     "@please-practice/greetings#test:go": {},
     "@please-practice/greetings#test:js": {},
-    "@please-practice/greetings#test:py": {},
+    "@please-practice/greetings#test:py": {
+      "outputs": ["dist/**", "plz-out/**"]
+    },
     "greetings:test": {
       "dependsOn": [
         "@please-practice/greetings#test:go",

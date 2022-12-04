@@ -6,7 +6,7 @@ from packages.greetings import greetings
 
 def main():
     greetings_file = os.getenv(
-        "GREETINGS_FILE",
+        "GREETINGS_PATH",
         path.join("data", "greetings.json"),
     )
 

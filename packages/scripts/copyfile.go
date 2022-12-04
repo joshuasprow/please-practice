@@ -9,7 +9,7 @@ import (
 )
 
 // validates file paths are correct and copies file from src to dst, creating
-// directories if necessary
+// directories if necessary. also modifies permissions of dst to 0755
 func CopyFile(src, dst string) error {
 	srcAbs, err := filepath.Abs(
 		src,
@@ -36,6 +36,10 @@ func CopyFile(src, dst string) error {
 		return err
 	}
 	defer dstFile.Close()
+
+	if err := os.Chmod(dstAbs, 0755); err != nil {
+		return err
+	}
 
 	srcFile, err := os.Open(srcAbs)
 	if err != nil {
