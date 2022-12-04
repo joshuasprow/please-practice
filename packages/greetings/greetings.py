@@ -1,6 +1,9 @@
-import i18n
+import json
 import random
+from os import path
 from typing import NamedTuple
+
+import i18n
 
 
 class Word(NamedTuple):
@@ -8,38 +11,34 @@ class Word(NamedTuple):
     word: str
 
 
-hello_en = Word("en", "Hello")
+def read_hellos_from_file() -> list[Word]:
+    filepath = path.join("data", "greetings.json")
+    objs: list[Word] = []
 
-hellos = [
-    hello_en,
-    Word("es", "Hola"),
-    Word("fr", "Bonjour"),
-    Word("de", "Hallo"),
-    Word("it", "Ciao"),
-    Word("pt", "Olá"),
-    Word("ru", "Привет"),
-    Word("ja", "こんにちは"),
-    Word("zh", "你好"),
-    Word("ko", "안녕하세요"),
-    Word("ar", "مرحبا"),
-    Word("hi", "नमस्ते"),
-    Word("bn", "হ্যালো"),
-    Word("th", "สวัสดี"),
-    Word("vi", "Xin chào"),
-    Word("id", "Halo"),
-    Word("ms", "Hai"),
-]
+    with open(filepath, "r") as f:
+        objs = json.load(f)
 
-for hello in hellos:
-    i18n.add_translation(
-        hello_en.word,
-        hello.word,
-        locale=hello.locale,
-    )
+    return [Word(**obj) for obj in objs]
+
+
+def load_bundle(hellos: list[Word], hello_en: Word):
+    for hello in hellos:
+        i18n.add_translation(
+            hello_en.word,
+            hello.word,
+            locale=hello.locale,
+        )
 
 
 def greeting():
-    locale = random.choice(hellos).locale
-    hello = i18n.t(hello_en.word, locale=locale)
+    hellos = read_hellos_from_file()
+    hello_en = next(hello for hello in hellos if hello.locale == "en")
 
-    return hello
+    if hello_en is None:
+        raise Exception("No English hello found")
+
+    load_bundle(hellos, hello_en)
+
+    locale = random.choice(hellos).locale
+
+    return i18n.t(hello_en.word, locale=locale)
