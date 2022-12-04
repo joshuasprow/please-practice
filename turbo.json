@@ -1,6 +1,16 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
+    "@please-practice/greetings#test:go": {},
+    "@please-practice/greetings#test:js": {},
+    "@please-practice/greetings#test:py": {},
+    "greetings:test": {
+      "dependsOn": [
+        "@please-practice/greetings#test:go",
+        "@please-practice/greetings#test:js",
+        "@please-practice/greetings#test:py"
+      ]
+    },
     "@please-practice/gohello#start": {
       "cache": false
     },

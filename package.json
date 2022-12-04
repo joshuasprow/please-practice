@@ -6,6 +6,10 @@
     "packages/*"
   ],
   "scripts": {
+    "greetings:test:go": "turbo run @please-practice/greetings#test:go",
+    "greetings:test:js": "turbo run @please-practice/greetings#test:js",
+    "greetings:test:py": "turbo run @please-practice/greetings#test:py",
+    "greetings:test": "turbo run greetings:test",
     "hello:go": "turbo run @please-practice/gohello#start",
     "hello:js": "turbo run @please-practice/jshello#start",
     "hello:py": "turbo run @please-practice/pyhello#start",
