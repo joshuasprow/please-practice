@@ -13,7 +13,15 @@
     "hello:go": "turbo run @please-practice/gohello#start",
     "hello:js": "turbo run @please-practice/jshello#start",
     "hello:py": "turbo run @please-practice/pyhello#start",
-    "hello": "turbo run hello"
+    "hello": "turbo run hello",
+    "hello:build:go": "turbo run @please-practice/gohello#build",
+    "hello:build:js": "turbo run @please-practice/jshello#build",
+    "hello:build:py": "turbo run @please-practice/pyhello#build",
+    "hello:build": "turbo run hello:build",
+    "hello:publish:go": "turbo run @please-practice/gohello#publish",
+    "hello:publish:js": "turbo run @please-practice/jshello#publish",
+    "hello:publish:py": "turbo run @please-practice/pyhello#publish",
+    "hello:publish": "turbo run hello:build"
   },
   "keywords": [],
   "author": "",

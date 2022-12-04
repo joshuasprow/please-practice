@@ -26,6 +26,17 @@
         "@please-practice/jshello#start",
         "@please-practice/pyhello#start"
       ]
+    },
+    "@please-practice/gohello#build": {},
+    "hello:build": {
+      "dependsOn": ["@please-practice/gohello#build"]
+    },
+    "@please-practice/gohello#publish": {
+      "cache": false,
+      "dependsOn": ["@please-practice/gohello#build"]
+    },
+    "hello:publish": {
+      "dependsOn": ["@please-practice/gohello#publish"]
     }
   }
 }

@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "go run main.go"
+    "start": "go run main.go",
+    "build": "GOOS=linux GOARCH=amd64 go build -o dist/gohello main.go",
+    "publish": "docker build -t please-practice/gohello ."
   }
 }

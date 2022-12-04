@@ -1,4 +1,5 @@
 .turbo
 .venv
+dist
 node_modules
 plz-out
