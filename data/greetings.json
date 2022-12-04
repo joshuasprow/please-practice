@@ -1,0 +1,19 @@
+[
+  { "locale": "en", "word": "Hello" },
+  { "locale": "es", "word": "Hola" },
+  { "locale": "fr", "word": "Bonjour" },
+  { "locale": "de", "word": "Hallo" },
+  { "locale": "it", "word": "Ciao" },
+  { "locale": "pt", "word": "Olá" },
+  { "locale": "ru", "word": "Привет" },
+  { "locale": "ja", "word": "こんにちは" },
+  { "locale": "zh", "word": "你好" },
+  { "locale": "ko", "word": "안녕하세요" },
+  { "locale": "ar", "word": "مرحبا" },
+  { "locale": "hi", "word": "नमस्ते" },
+  { "locale": "bn", "word": "হ্যালো" },
+  { "locale": "th", "word": "สวัสดี" },
+  { "locale": "vi", "word": "Xin chào" },
+  { "locale": "id", "word": "Halo" },
+  { "locale": "ms", "word": "Hai" }
+]

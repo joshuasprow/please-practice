@@ -1,7 +1,10 @@
 package greetings
 
 import (
+	"encoding/json"
 	"math/rand"
+	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/nicksnyder/go-i18n/v2/i18n"
@@ -10,32 +13,31 @@ import (
 
 const messageID = "hello"
 
-var hellos = []struct {
-	Locale string
-	Word   string
-}{
-	{Locale: "en", Word: "Hello"},
-	{Locale: "es", Word: "Hola"},
-	{Locale: "fr", Word: "Bonjour"},
-	{Locale: "de", Word: "Hallo"},
-	{Locale: "it", Word: "Ciao"},
-	{Locale: "pt", Word: "Olá"},
-	{Locale: "ru", Word: "Привет"},
-	{Locale: "ja", Word: "こんにちは"},
-	{Locale: "zh", Word: "你好"},
-	{Locale: "ko", Word: "안녕하세요"},
-	{Locale: "ar", Word: "مرحبا"},
-	{Locale: "hi", Word: "नमस्ते"},
-	{Locale: "bn", Word: "হ্যালো"},
-	{Locale: "th", Word: "สวัสดี"},
-	{Locale: "vi", Word: "Xin chào"},
-	{Locale: "id", Word: "Halo"},
-	{Locale: "ms", Word: "Hai"},
+type Word struct {
+	Locale string `json:"locale"`
+	Word   string `json:"word"`
 }
 
 var bundle *i18n.Bundle
 
-func loadBundle() (*i18n.Bundle, error) {
+func readHellosFromFile() ([]Word, error) {
+	path := filepath.Join("..", "..", "data", "greetings.json")
+
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+
+	hellos := []Word{}
+
+	if err := json.Unmarshal(data, &hellos); err != nil {
+		return nil, err
+	}
+
+	return hellos, nil
+}
+
+func loadBundle(hellos []Word) (*i18n.Bundle, error) {
 	b := i18n.NewBundle(language.English)
 
 	for _, hello := range hellos {
@@ -57,7 +59,7 @@ func loadBundle() (*i18n.Bundle, error) {
 	return b, nil
 }
 
-func getRandomHello() (string, error) {
+func getRandomHello(hellos []Word) (string, error) {
 	rand.Seed(time.Now().UnixNano())
 
 	index := rand.Intn(len(hellos))
@@ -71,12 +73,17 @@ func getRandomHello() (string, error) {
 func Greeting() (string, error) {
 	var err error
 
+	hellos, err := readHellosFromFile()
+	if err != nil {
+		return "", err
+	}
+
 	if bundle == nil {
-		bundle, err = loadBundle()
+		bundle, err = loadBundle(hellos)
 		if err != nil {
 			return "", err
 		}
 	}
 
-	return getRandomHello()
+	return getRandomHello(hellos)
 }
