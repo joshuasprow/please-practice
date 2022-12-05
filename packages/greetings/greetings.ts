@@ -37,6 +37,7 @@ const loadBundle = (hellos: Word[], helloEn: Word) => {
   i18n.init({ resources });
 };
 
+// TODO: add filepath param
 export const greeting = () => {
   const hellos = readHellosFromFile();
   const helloEn = hellos.find((hello) => hello.locale === "en");
