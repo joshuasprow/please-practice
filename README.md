@@ -5,6 +5,6 @@
 | `pleasew`                                                  | binary that will download and install the correct version of [`please`](https://please.build) automagically                                        |
 | `**/`[`BUILD`](https://please.build/language.html)` files` | configs in directories that are run/built with `please`                                                                                            |
 
-| <h2>`/plz-deps/`</h2> |                                                                                              |
-| --------------------- | -------------------------------------------------------------------------------------------- |
-| `python/`             | `BUILD` files that configure third party dependencies, all of which are visible project-wide |
+| <h2>`/plz/`</h2> |                                                                                              |
+| ---------------- | -------------------------------------------------------------------------------------------- |
+| `python/`        | `BUILD` files that configure third party dependencies, all of which are visible project-wide |

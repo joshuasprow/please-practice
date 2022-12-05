@@ -9,4 +9,4 @@
 ; version = 16.25.1
 
 [python]
-moduledir = plz-deps.python
+moduledir = plz.python
