@@ -4,7 +4,7 @@ import (
 	"log"
 	"path/filepath"
 
-	"github.com/joshuasprow/please-practice/packages/scripts"
+	"github.com/joshuasprow/please-practice/packages/fsutil"
 	"github.com/magefile/mage/sh"
 )
 
@@ -23,7 +23,7 @@ func copyGreetingsFile() error {
 	dst := filepath.Join("dist", "greetings.json")
 	src := filepath.Join("..", "..", "data", "greetings.json")
 
-	return scripts.CopyFile(src, dst)
+	return fsutil.CopyFile(src, dst)
 }
 
 func main() {
