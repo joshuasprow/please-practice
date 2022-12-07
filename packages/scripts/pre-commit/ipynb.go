@@ -173,7 +173,7 @@ func scrubIpynbFile(path string) (outputs int, err error) {
 }
 
 func scrubIpynbFiles(ignorePatterns ...string) error {
-	color.Cyan("\nscrubbing .ipynb files...\n\n")
+	color.Cyan("scrubbing .ipynb files...")
 
 	paths, err := findIpynbPaths(".", ignorePatterns...)
 	if err != nil {
@@ -181,7 +181,7 @@ func scrubIpynbFiles(ignorePatterns ...string) error {
 	}
 
 	if len(paths) == 0 {
-		color.Cyan("\nno .ipynb files found\n\n")
+		color.Cyan("no .ipynb files found")
 		return nil
 	}
 
@@ -207,7 +207,7 @@ func scrubIpynbFiles(ignorePatterns ...string) error {
 		c = color.New(color.FgGreen)
 	}
 
-	c.Println("\nscrubbed %d files\n\n")
+	c.Println("scrubbed %d files", len(scrubbed))
 
 	return nil
 }
