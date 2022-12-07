@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"io/fs"
 	"os"
@@ -137,6 +138,46 @@ func writeIpynbFile(path string, ipynb ipynbData) error {
 	}
 
 	if _, err := file.Write(data); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func scrubIpynbFile(path string) error {
+	ipynb, err := readIpynbFile(path)
+	if err != nil {
+		return err
+	}
+
+	if !ipynb.HasOutputs() {
+		return nil
+	}
+
+	scrubbed := scrubOutputData(ipynb)
+
+	if err := writeIpynbFile(path, scrubbed); err != nil {
+		return err
+	}
+
+	fmt.Printf("scrubbed %s\n", path)
+
+	return nil
+}
+
+func scrubIpynbFiles(ignorePatterns ...string) error {
+	paths, err := findIpynbPaths(".", ignorePatterns...)
+	if err != nil {
+		return err
+	}
+
+	for _, path := range paths {
+		if err := scrubIpynbFile(path); err != nil {
+			return err
+		}
+	}
+
+	if err := gitAddPaths(paths); err != nil {
 		return err
 	}
 
