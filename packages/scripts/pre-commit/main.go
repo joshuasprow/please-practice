@@ -65,6 +65,10 @@ func main() {
 			panic(err)
 		}
 
+		if !ipynb.HasOutputs() {
+			continue
+		}
+
 		scrubbed := scrubOutputData(ipynb)
 
 		if err := writeIpynbFile(path, scrubbed); err != nil {

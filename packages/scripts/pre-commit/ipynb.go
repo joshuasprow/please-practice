@@ -50,6 +50,20 @@ type ipynbData struct {
 	NbformatMinor int `json:"nbformat_minor"`
 }
 
+func (i ipynbData) HasOutputs() bool {
+	if len(i.Cells) == 0 {
+		return false
+	}
+
+	for _, cell := range i.Cells {
+		if len(cell.Outputs) > 0 {
+			return true
+		}
+	}
+
+	return false
+}
+
 // walks filepath and finds filenames ending with .ipynb. pass glob patterns to
 // ignore files/directories
 func findIpynbPaths(
