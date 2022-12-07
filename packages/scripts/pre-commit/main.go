@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
+	"github.com/magefile/mage/sh"
 )
 
 func newPatternMatcher(ignorePatterns ...string) gitignore.Matcher {
@@ -123,6 +124,13 @@ func writeIpynbFile(path string, ipynb ipynbData) error {
 	return nil
 }
 
+func gitAddPaths(paths []string) error {
+	args := []string{"add"}
+	args = append(args, paths...)
+
+	return sh.RunV("git", args...)
+}
+
 func main() {
 	ignorePatterns, err := readGitignoreFile(".gitignore")
 	if err != nil {
@@ -147,5 +155,9 @@ func main() {
 		}
 
 		fmt.Printf("scrubbed %s\n", path)
+	}
+
+	if err := gitAddPaths(paths); err != nil {
+		panic(err)
 	}
 }
