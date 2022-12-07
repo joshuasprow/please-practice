@@ -1,0 +1,69 @@
+{
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": 0,
+      "metadata": {},
+      "outputs": null,
+      "source": [
+        "# TODO: check out ways to keep things secret:\n",
+        "#  - https://nbdime.readthedocs.io/en/latest/config.html#configuring-ignores    \n",
+        "#    python module that can do a bunch of interesting stuff with notebooks \n",
+        "#    [check out \"Ignores\"]\n",
+        "#    \n",
+        "#  - https://github.com/kynan/nbstripout\n",
+        "#    strips output [pre-commit?] \n",
+        "\n",
+        "\n",
+        "import pandas as pd\n",
+        "\n",
+        "filenames = [\n",
+        "    \"ACS_MD_15_5YR_DP03\",\n",
+        "    \"ACS_MD_15_5YR_DP05\",\n",
+        "    \"cgr-definitions-table\",\n",
+        "    \"cgr-premiums-table\",\n",
+        "    \"territory-definitions-table\",\n",
+        "]\n",
+        "\n",
+        "dfs = [pd.read_csv(f\"../data/private/car-insurance/{filename}.csv\") for filename in filenames]\n",
+        "\n",
+        "for df in dfs:\n",
+        "    print(df)\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 0,
+      "metadata": {},
+      "outputs": null,
+      "source": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3.10.8 ('.venv': poetry)",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {
+      "codemirror_mode": {
+        "name": "ipython",
+        "version": 3
+      },
+      "file_extension": ".py",
+      "mimetype": "text/x-python",
+      "name": "python",
+      "nbconvert_exporter": "python",
+      "pygments_lexer": "ipython3",
+      "version": "3.10.8"
+    },
+    "orig_nbformat": 4,
+    "vscode": {
+      "interpreter": {
+        "hash": "e2d0339f974207f3246a345812350db13e0f064182e8be5d29176564245cb384"
+      }
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 2
+}
