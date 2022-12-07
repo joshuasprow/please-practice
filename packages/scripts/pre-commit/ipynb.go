@@ -73,7 +73,7 @@ func findIpynbPaths(
 	[]string,
 	error,
 ) {
-	matcher := newPatternMatcher(ignorePatterns...)
+	matcher := newGitPatternMatcher(ignorePatterns...)
 	paths := []string{}
 
 	if err := filepath.WalkDir(
