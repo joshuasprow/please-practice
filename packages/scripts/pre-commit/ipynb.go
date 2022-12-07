@@ -181,18 +181,33 @@ func scrubIpynbFiles(ignorePatterns ...string) error {
 	}
 
 	if len(paths) == 0 {
+		color.Cyan("\nno .ipynb files found\n\n")
 		return nil
 	}
 
+	scrubbed := []string{}
+
 	for _, path := range paths {
-		if _, err := scrubIpynbFile(path); err != nil {
+		outputs, err := scrubIpynbFile(path)
+		if err != nil {
 			return err
+		}
+
+		if outputs > 0 {
+			scrubbed = append(scrubbed, path)
 		}
 	}
 
-	if err := gitAddPaths(paths); err != nil {
+	if err := gitAddPaths(scrubbed); err != nil {
 		return err
 	}
+
+	c := color.New(color.FgRed)
+	if len(scrubbed) == 0 {
+		c = color.New(color.FgGreen)
+	}
+
+	c.Println("\nscrubbed %d files\n\n")
 
 	return nil
 }
