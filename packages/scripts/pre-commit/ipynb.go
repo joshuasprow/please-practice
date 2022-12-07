@@ -173,11 +173,15 @@ func scrubIpynbFile(path string) (outputs int, err error) {
 }
 
 func scrubIpynbFiles(ignorePatterns ...string) error {
-	color.Cyan("\nscrubbing .ipynb files...")
+	color.Cyan("\nscrubbing .ipynb files...\n")
 
 	paths, err := findIpynbPaths(".", ignorePatterns...)
 	if err != nil {
 		return err
+	}
+
+	if len(paths) == 0 {
+		return nil
 	}
 
 	for _, path := range paths {
@@ -185,8 +189,6 @@ func scrubIpynbFiles(ignorePatterns ...string) error {
 			return err
 		}
 	}
-
-	color.Cyan("\nscrubbed %d .ipynb files\n", len(paths))
 
 	if err := gitAddPaths(paths); err != nil {
 		return err
