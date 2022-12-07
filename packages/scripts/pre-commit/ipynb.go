@@ -192,7 +192,5 @@ func scrubIpynbFiles(ignorePatterns ...string) error {
 		return err
 	}
 
-	color.Cyan("added files to git\n")
-
 	return nil
 }
