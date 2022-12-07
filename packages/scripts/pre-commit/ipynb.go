@@ -207,7 +207,7 @@ func scrubIpynbFiles(ignorePatterns ...string) error {
 		c = color.New(color.FgGreen)
 	}
 
-	c.Println("scrubbed %d files", len(scrubbed))
+	c.Printf("scrubbed %d files\n", len(scrubbed))
 
 	return nil
 }
