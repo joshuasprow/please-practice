@@ -2,11 +2,12 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"io/fs"
 	"os"
 	"path/filepath"
+
+	"github.com/fatih/color"
 )
 
 type ipynbData struct {
@@ -83,9 +84,11 @@ func findIpynbPaths(
 			if matcher.Match([]string{path}, d.IsDir()) {
 				return filepath.SkipDir
 			}
+
 			if filepath.Ext(path) == ".ipynb" {
 				paths = append(paths, path)
 			}
+
 			return nil
 		},
 	); err != nil {
@@ -116,13 +119,17 @@ func readIpynbFile(path string) (ipynbData, error) {
 	return ipynb, nil
 }
 
-func scrubOutputData(ipynb ipynbData) ipynbData {
+func scrubOutputData(ipynb ipynbData) (scrubbed ipynbData, outputs int) {
+	outputs = 0
+
 	for i := range ipynb.Cells {
+		outputs += len(ipynb.Cells[i].Outputs)
+
 		ipynb.Cells[i].ExecutionCount = 0
 		ipynb.Cells[i].Outputs = nil
 	}
 
-	return ipynb
+	return ipynb, outputs
 }
 
 func writeIpynbFile(path string, ipynb ipynbData) error {
@@ -144,42 +151,48 @@ func writeIpynbFile(path string, ipynb ipynbData) error {
 	return nil
 }
 
-func scrubIpynbFile(path string) error {
+func scrubIpynbFile(path string) (outputs int, err error) {
 	ipynb, err := readIpynbFile(path)
 	if err != nil {
-		return err
+		return 0, err
 	}
 
 	if !ipynb.HasOutputs() {
-		return nil
+		return 0, nil
 	}
 
-	scrubbed := scrubOutputData(ipynb)
+	scrubbed, outputs := scrubOutputData(ipynb)
 
 	if err := writeIpynbFile(path, scrubbed); err != nil {
-		return err
+		return 0, err
 	}
 
-	fmt.Printf("scrubbed %s\n", path)
+	color.White("  %s [%d outputs]\n", path, outputs)
 
-	return nil
+	return 0, nil
 }
 
 func scrubIpynbFiles(ignorePatterns ...string) error {
+	color.Cyan("\nscrubbing .ipynb files...")
+
 	paths, err := findIpynbPaths(".", ignorePatterns...)
 	if err != nil {
 		return err
 	}
 
 	for _, path := range paths {
-		if err := scrubIpynbFile(path); err != nil {
+		if _, err := scrubIpynbFile(path); err != nil {
 			return err
 		}
 	}
 
+	color.Cyan("\nscrubbed %d .ipynb files\n", len(paths))
+
 	if err := gitAddPaths(paths); err != nil {
 		return err
 	}
+
+	color.Cyan("added files to git\n")
 
 	return nil
 }
