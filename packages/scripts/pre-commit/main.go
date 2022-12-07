@@ -141,12 +141,11 @@ func main() {
 		}
 
 		scrubbed := scrubOutputData(ipynb)
-		scrubbedPath := fmt.Sprintf("%s.scrubbed", path)
 
-		if err := writeIpynbFile(scrubbedPath, scrubbed); err != nil {
+		if err := writeIpynbFile(path, scrubbed); err != nil {
 			panic(err)
 		}
-	}
 
-	os.Exit(1)
+		fmt.Printf("scrubbed %s\n", path)
+	}
 }
