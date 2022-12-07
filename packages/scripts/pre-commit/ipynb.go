@@ -204,12 +204,15 @@ func scrubIpynbFiles(ignorePatterns ...string) error {
 		}
 	}
 
-	c := color.New(color.FgRed)
 	if len(scrubbed) == 0 {
-		c = color.New(color.FgGreen)
+		color.Green(
+			"%d files needed cleaning. %s!\n",
+			len(scrubbed),
+			randomInterjection(),
+		)
+	} else {
+		color.Red("found %d files with output data and scrubbed 'em real good\n", len(scrubbed))
 	}
-
-	c.Printf("scrubbed %d files\n", len(scrubbed))
 
 	return nil
 }
