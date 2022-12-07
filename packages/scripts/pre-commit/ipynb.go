@@ -198,8 +198,10 @@ func scrubIpynbFiles(ignorePatterns ...string) error {
 		}
 	}
 
-	if err := gitAddPaths(scrubbed); err != nil {
-		return err
+	if len(scrubbed) > 0 {
+		if err := gitAddPaths(scrubbed); err != nil {
+			return err
+		}
 	}
 
 	c := color.New(color.FgRed)
