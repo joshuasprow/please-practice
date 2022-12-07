@@ -1,8 +1,13 @@
 package main
 
-import "math/rand"
+import (
+	"math/rand"
+	"time"
+)
 
 func randomInterjection() string {
+	rand.Seed(time.Now().UnixNano())
+
 	return interjections[rand.Intn(len(interjections))]
 }
 
